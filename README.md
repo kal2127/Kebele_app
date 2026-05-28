@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # kebele_appointment_management_system
 
 A new Flutter project.
@@ -15,3 +16,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Kebele_app
+>>>>>>> 109226a862e8c0d4adfe199bbbb4224c49f215ad
