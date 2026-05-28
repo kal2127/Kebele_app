@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../app.dart';
 import '../data/local_services_data.dart';
+import '../models/kebele_service.dart';
 import '../providers/language_provider.dart';
 import '../providers/theme_provider.dart';
 import '../themes/app_theme.dart';
@@ -200,39 +201,17 @@ class HomeScreen extends StatelessWidget {
                 crossAxisCount: crossAxisCount,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                childAspectRatio: 1.18,
+                mainAxisExtent: crossAxisCount == 2 ? 164 : 152,
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final service = services[index];
-                  return InkWell(
-                    borderRadius: BorderRadius.circular(28),
+                  return _FeaturedServiceCard(
+                    service: service,
                     onTap: () => Navigator.pushNamed(
                       context,
                       AppRoutes.serviceDetails,
                       arguments: service,
-                    ),
-                    child: SoftCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          IconBubble(icon: service.icon),
-                          const Spacer(),
-                          Text(
-                            service.titleKey.tr(),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            service.processingTimeKey.tr(),
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   );
                 },
@@ -241,6 +220,53 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _FeaturedServiceCard extends StatelessWidget {
+  const _FeaturedServiceCard({
+    required this.service,
+    required this.onTap,
+  });
+
+  final KebeleService service;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(28),
+      child: SoftCard(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            IconBubble(icon: service.icon, size: 48),
+            const Spacer(),
+            Text(
+              service.titleKey.tr(),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    height: 1.2,
+                  ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              service.processingTimeKey.tr(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
