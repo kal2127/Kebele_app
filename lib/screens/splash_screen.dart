@@ -33,14 +33,14 @@ class _SplashScreenState extends State<SplashScreen>
     Timer(const Duration(milliseconds: 1900), _goNext);
   }
 
-  void _goNext() {
+  Future<void> _goNext() async {
     if (!mounted) return;
-    final hasSelected =
-        context.read<LanguageProvider>().hasSelectedLanguage;
-    Navigator.pushReplacementNamed(
-      context,
-      hasSelected ? AppRoutes.main : AppRoutes.language,
-    );
+    final languageProvider = context.read<LanguageProvider>();
+    if (!languageProvider.hasSelectedLanguage) {
+      await languageProvider.setLocale(languageProvider.locale);
+    }
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, AppRoutes.main);
   }
 
   @override
@@ -85,16 +85,17 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               const SizedBox(height: 26),
               Text(
-                'app_name'.tr(),
+                'splash_welcome'.tr(),
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w900,
                     ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Text(
-                'tagline'.tr(),
+                'splash_welcome_subtitle'.tr(),
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Colors.white.withOpacity(0.82),
                     ),
