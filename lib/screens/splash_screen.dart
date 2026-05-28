@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
     )..forward();
     _scale = CurvedAnimation(parent: _controller, curve: Curves.easeOutBack);
     _fade = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
-    Timer(const Duration(milliseconds: 1900), _goNext);
+    Timer(const Duration(milliseconds: 2600), _goNext);
   }
 
   Future<void> _goNext() async {
@@ -51,6 +50,12 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isAmharic = Localizations.localeOf(context).languageCode == 'am';
+    final welcomeTitle = isAmharic ? 'እንኳን ደህና መጡ' : 'Welcome';
+    final welcomeSubtitle = isAmharic
+        ? 'የቀበሌ አገልግሎቶች በቀላሉ'
+        : 'Your Kebele services, simplified';
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -63,53 +68,47 @@ class _SplashScreenState extends State<SplashScreen>
         ),
         child: FadeTransition(
           opacity: _fade,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ScaleTransition(
-                scale: _scale,
-                child: Container(
-                  width: 112,
-                  height: 112,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.16),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white.withOpacity(0.26)),
-                  ),
-                  child: const Icon(
-                    Icons.account_balance_rounded,
-                    color: Colors.white,
-                    size: 56,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ScaleTransition(
+                  scale: _scale,
+                  child: const Text(
+                    '👋',
+                    style: TextStyle(fontSize: 88, height: 1),
                   ),
                 ),
-              ),
-              const SizedBox(height: 26),
-              Text(
-                'splash_welcome'.tr(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                    ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'splash_welcome_subtitle'.tr(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.white.withOpacity(0.82),
-                    ),
-              ),
-              const SizedBox(height: 38),
-              const SizedBox(
-                width: 30,
-                height: 30,
-                child: CircularProgressIndicator(
-                  color: AppTheme.gold,
-                  strokeWidth: 3,
+                const SizedBox(height: 20),
+                Text(
+                  welcomeTitle,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                      ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                Text(
+                  welcomeSubtitle,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.88),
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                const SizedBox(height: 42),
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(
+                    color: AppTheme.gold,
+                    strokeWidth: 3,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
