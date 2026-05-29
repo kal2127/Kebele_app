@@ -41,24 +41,17 @@ class HomeScreen extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
+                      const SizedBox(height: 4),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 128),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'welcome'.tr().toUpperCase(),
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
                             Text(
                               'app_short_name'.tr(),
                               style: Theme.of(context)
@@ -72,22 +65,7 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      _HeaderAction(
-                        label: context.watch<LanguageProvider>().isAmharic
-                            ? 'EN'
-                            : 'አማ',
-                        onTap: () => _toggleLanguage(context),
-                      ),
-                      const SizedBox(width: 10),
-                      _HeaderAction(
-                        icon: context.watch<ThemeProvider>().isDarkMode
-                            ? Icons.light_mode_outlined
-                            : Icons.dark_mode_outlined,
-                        onTap: () => context.read<ThemeProvider>().toggleTheme(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 28),
+                      const SizedBox(height: 28),
                   SoftCard(
                     color: Colors.white.withOpacity(0.16),
                     child: Row(
@@ -118,6 +96,31 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _HeaderAction(
+                          label: context.watch<LanguageProvider>().isAmharic
+                              ? 'EN'
+                              : 'አማ',
+                          onTap: () => _toggleLanguage(context),
+                        ),
+                        const SizedBox(width: 8),
+                        _HeaderAction(
+                          icon: context.watch<ThemeProvider>().isDarkMode
+                              ? Icons.light_mode_outlined
+                              : Icons.dark_mode_outlined,
+                          onTap: () =>
+                              context.read<ThemeProvider>().toggleTheme(),
                         ),
                       ],
                     ),
@@ -206,14 +209,7 @@ class HomeScreen extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final service = services[index];
-                  return _FeaturedServiceCard(
-                    service: service,
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      AppRoutes.serviceDetails,
-                      arguments: service,
-                    ),
-                  );
+                  return _FeaturedServiceCard(service: service);
                 },
                 childCount: services.length,
               ),
@@ -226,47 +222,39 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _FeaturedServiceCard extends StatelessWidget {
-  const _FeaturedServiceCard({
-    required this.service,
-    required this.onTap,
-  });
+  const _FeaturedServiceCard({required this.service});
 
   final KebeleService service;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(28),
-      child: SoftCard(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            IconBubble(icon: service.icon, size: 48),
-            const Spacer(),
-            Text(
-              service.titleKey.tr(),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    height: 1.2,
-                  ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              service.processingTimeKey.tr(),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ),
+    return SoftCard(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IconBubble(icon: service.icon, size: 48),
+          const Spacer(),
+          Text(
+            service.titleKey.tr(),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  height: 1.2,
+                ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            service.processingTimeKey.tr(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ],
       ),
     );
   }

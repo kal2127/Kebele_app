@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
     )..forward();
     _scale = CurvedAnimation(parent: _controller, curve: Curves.easeOutBack);
     _fade = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
-    Timer(const Duration(milliseconds: 2600), _goNext);
+    Timer(const Duration(milliseconds: 3800), _goNext);
   }
 
   Future<void> _goNext() async {
@@ -52,9 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     final isAmharic = Localizations.localeOf(context).languageCode == 'am';
     final welcomeTitle = isAmharic ? 'እንኳን ደህና መጡ' : 'Welcome';
-    final welcomeSubtitle = isAmharic
-        ? 'የቀበሌ አገልግሎቶች በቀላሉ'
-        : 'Your Kebele services, simplified';
+    const welcomeSubtitle = 'Done by EEHK';
 
     return Scaffold(
       body: Container(
