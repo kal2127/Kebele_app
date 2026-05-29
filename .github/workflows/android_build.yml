@@ -28,8 +28,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Android APK (Release Mode)
-        run: |
-          run: flutter build apk --release --build-name=1.0.${{ github.run_number }} --build-number=${{ github.run_number }}
+        run: flutter build apk --debug --build-name=1.0.${{ github.run_number }} --build-number=${{ github.run_number }}
 
       - name: Save APK Artifacts
         uses: actions/upload-artifact@v4
