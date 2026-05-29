@@ -91,6 +91,16 @@ class HomeScreen extends StatelessWidget {
                                     ),
                               ),
                               Text(
+                                'office_subtitle'.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                              ),
+                              Text(
                                 'office_hours'.tr(),
                                 style: const TextStyle(color: Colors.white70),
                               ),

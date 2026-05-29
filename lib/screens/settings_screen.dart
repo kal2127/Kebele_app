@@ -56,7 +56,8 @@ class SettingsScreen extends StatelessWidget {
                           'app_short_name'.tr().toUpperCase(),
                           style: const TextStyle(
                             color: Colors.white70,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
                             letterSpacing: 0.8,
                           ),
                         ),

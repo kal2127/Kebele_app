@@ -1,6 +1,6 @@
 {
   "app_name": "Kebele Appointment Management System",
-  "app_short_name": "Kebele Services",
+  "app_short_name": "Kebele Appointment App",
   "tagline": "Kebele Services",
   "welcome": "Welcome",
   "splash_welcome": "Welcome 👋",
@@ -11,7 +11,8 @@
   "done": "Done",
   "choose_language": "Choose your language",
   "choose_language_subtitle": "Select the language you want to use in the app.",
-  "office_name": "Addis Ababa Kebele 07",
+  "office_name": "Addis Ababa",
+  "office_subtitle": "N/S/L, Woreda 01",
   "office_hours": "Mon - Fri • 8:30 AM - 5:00 PM",
   "quick_actions": "Quick Actions",
   "featured_services": "Featured Services",
